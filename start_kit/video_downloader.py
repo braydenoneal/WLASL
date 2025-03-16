@@ -141,11 +141,12 @@ def download_yt_videos(indexfile, saveto='raw_videos'):
 
                 # please be nice to the host - take pauses and avoid spamming
                 time.sleep(random.uniform(1.0, 1.5))
+                exit(0)
     
 
 if __name__ == '__main__':
-    logging.info('Start downloading non-youtube videos.')
-    download_nonyt_videos('WLASL_v0.3.json')
+    # logging.info('Start downloading non-youtube videos.')
+    # download_nonyt_videos('WLASL_v0.3.json')
 
     check_youtube_dl_version()
     logging.info('Start downloading youtube videos.')
