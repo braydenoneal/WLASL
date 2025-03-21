@@ -74,6 +74,21 @@ def test(model, test_loader):
     print('\nVal. set ({:d} samples): top-5 Accuracy: {:.2f}%\n'.format(len(all_y), 100 * top5acc))
     print('\nVal. set ({:d} samples): top-10 Accuracy: {:.2f}%\n'.format(len(all_y), 100 * top10acc))
 
+    """
+    batches: 44
+
+    Val. set (2879 samples): top-1 Accuracy: 23.65%
+
+
+    Val. set (2879 samples): top-3 Accuracy: 42.58%
+
+
+    Val. set (2879 samples): top-5 Accuracy: 51.75%
+
+
+    Val. set (2879 samples): top-10 Accuracy: 62.24%
+    """
+
 
 def compute_top_n_accuracy(truths, preds, n):
     best_n = np.argsort(preds, axis=1)[:, -n:]
