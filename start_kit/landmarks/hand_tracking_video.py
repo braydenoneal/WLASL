@@ -4,6 +4,7 @@ import mediapipe.python.solutions.pose as mp_pose
 import mediapipe.python.solutions.face_mesh as mp_face
 import mediapipe.python.solutions.drawing_utils as drawing
 import mediapipe.python.solutions.drawing_styles as drawing_styles
+import numpy as np
 
 hands = mp_hands.Hands(
     static_image_mode=False,
@@ -54,9 +55,8 @@ while cap.isOpened():
         [(11, 12), (11, 13), (13, 15), (12, 14), (14, 16), (11, 23), (12, 24), (23, 24), (23, 25), (24, 26), (25, 27),
          (26, 28), (27, 29), (28, 30), (29, 31), (30, 32), (27, 31), (28, 32)])
 
-    # print(len(pose_results.pose_landmarks.landmark))
-    # print(type(pose_results.pose_landmarks))
-    # exit()
+    # override the video with zeros to create the black background
+    frame = np.zeros_like(frame)
 
     if pose_results.pose_landmarks:
         drawing.draw_landmarks(
@@ -76,7 +76,8 @@ while cap.isOpened():
                 mp_face.FACEMESH_LEFT_EYEBROW,
                 mp_face.FACEMESH_RIGHT_EYE,
                 mp_face.FACEMESH_RIGHT_EYEBROW,
-                mp_face.FACEMESH_NOSE
+                # mp_face.FACEMESH_NOSE,
+                # mp_face.FACEMESH_TESSELATION
             ]:
                 drawing.draw_landmarks(
                     frame,
@@ -93,7 +94,7 @@ while cap.isOpened():
                 mp_hands.HAND_CONNECTIONS,
                 drawing_styles.get_default_hand_landmarks_style(),
                 drawing_styles.get_default_hand_connections_style(),
-                # is_drawing_landmarks=False
+                is_drawing_landmarks=False
             )
 
     # Display the annotated frame
