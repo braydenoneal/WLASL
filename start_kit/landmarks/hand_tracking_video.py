@@ -1,3 +1,4 @@
+# code adapted from https://github.com/prashver/hand-landmark-recognition-using-mediapipe
 import cv2 as cv
 import mediapipe.python.solutions.hands as mp_hands
 import mediapipe.python.solutions.pose as mp_pose
