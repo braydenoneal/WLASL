@@ -49,9 +49,6 @@ for filename in os.listdir(input_dir):
             if not ret:
                 break
 
-            # Resize the frame to fit the display window
-            frame = cv.resize(frame, (1280, 720))  # Adjust the dimensions as needed
-
             # Convert the frame to RGB format
             frame_rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
@@ -106,8 +103,7 @@ for filename in os.listdir(input_dir):
                         is_drawing_landmarks=False
                     )
 
-            # Resize the video to the original size and write to a file
-            frame = cv.resize(frame, (frame_width, frame_height))
+            # Write the video to a file
             out.write(frame)
 
         # Release capture and output
