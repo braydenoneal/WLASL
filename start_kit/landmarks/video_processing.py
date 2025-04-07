@@ -55,14 +55,14 @@ for filename in os.listdir(input_dir):
             # Convert the frame to RGB format
             frame_rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-            # Process the frame with MediaPipe Hands
-            results = hands.process(frame_rgb)
+            # Process the frame with MediaPipe
+            hands_results = hands.process(frame_rgb)
             pose_results = pose.process(frame_rgb)
             face_results = face.process(frame_rgb)
 
             POSE_CONNECTIONS = (
-                [(11, 12), (11, 13), (13, 15), (12, 14), (14, 16), (11, 23), (12, 24), (23, 24), (23, 25), (24, 26), (25, 27),
-                 (26, 28), (27, 29), (28, 30), (29, 31), (30, 32), (27, 31), (28, 32)])
+                [(11, 12), (11, 13), (13, 15), (12, 14), (14, 16), (11, 23), (12, 24), (23, 24), (23, 25), (24, 26),
+                 (25, 27), (26, 28), (27, 29), (28, 30), (29, 31), (30, 32), (27, 31), (28, 32)])
 
             # override the video with zeros to create the black background
             frame = np.zeros_like(frame)
@@ -95,8 +95,8 @@ for filename in os.listdir(input_dir):
                             is_drawing_landmarks=False
                         )
 
-            if results.multi_hand_landmarks:
-                for hand_landmarks in results.multi_hand_landmarks:
+            if hands_results.multi_hand_landmarks:
+                for hand_landmarks in hands_results.multi_hand_landmarks:
                     drawing.draw_landmarks(
                         frame,
                         hand_landmarks,
@@ -106,9 +106,10 @@ for filename in os.listdir(input_dir):
                         is_drawing_landmarks=False
                     )
 
+            # Resize the video to the original size and write to a file
             frame = cv.resize(frame, (frame_width, frame_height))
             out.write(frame)
 
-        # Release the video capture object and close all windows
+        # Release capture and output
         cap.release()
         out.release()
